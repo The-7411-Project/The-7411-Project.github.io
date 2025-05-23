@@ -49,29 +49,26 @@
       padding: 15px 30px;
       border-bottom: 1px solid var(--border-color);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
-      position: relative;
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      position: relative;
     }
 
     header h1 {
       margin: 0;
       font-size: 1.8em;
       color: var(--highlight-color);
-      flex: 1;
       user-select: none;
+      flex-shrink: 0;
     }
 
     nav {
-      margin-top: 10px;
-      position: absolute;
-      bottom: -36px;
-      left: 50%;
-      transform: translateX(-50%);
       display: flex;
-      gap: 15px;
-      z-index: 10;
+      gap: 20px;
+      justify-content: center;
+      flex-grow: 1;
+      margin: 0 20px;
     }
 
     nav a {
@@ -79,6 +76,7 @@
       text-decoration: none;
       font-weight: bold;
       transition: color 0.3s ease, text-shadow 0.3s ease;
+      line-height: 1;
     }
 
     nav a:hover {
@@ -87,16 +85,13 @@
     }
 
     #settings-toggle {
-      position: absolute;
-      right: 30px;
-      top: 50%;
-      transform: translateY(-50%);
       width: 28px;
       height: 28px;
       cursor: pointer;
       fill: var(--highlight-color);
       transition: fill 0.3s ease;
       user-select: none;
+      flex-shrink: 0;
     }
 
     #settings-toggle:hover {
@@ -264,7 +259,7 @@
       <a href="/archive">Archive</a>
     </nav>
 
-    <svg id="settings-toggle" viewBox="0 0 24 24" aria-label="Settings" role="button" tabindex="0" title="Settings">
+    <svg id="settings-toggle" viewBox="0 0 24 24" aria-label="Settings" role="button" tabindex="0" title="Settings" >
       <path d="M19.14 12.94a7.98 7.98 0 000-1.88l2.03-1.58-2-3.46-2.39.96a8.086 8.086 0 00-1.63-1l-.36-2.54H9.24l-.36 2.54a7.86 7.86 0 00-1.63 1l-2.39-.96-2 3.46 2.03 1.58a7.98 7.98 0 000 1.88L3.23 14.5l2 3.46 2.39-.96c.48.38 1 .7 1.63 1l.36 2.54h3.98l.36-2.54c.63-.3 1.15-.65 1.63-1l2.39.96 2-3.46-2.09-1.56zM12 15.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7z"/>
     </svg>
 
