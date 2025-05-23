@@ -46,14 +46,15 @@
 
     nav a {
       margin: 0 15px;
-      color: var(--text-color);
+      color: cyan;
       text-decoration: none;
       font-weight: bold;
-      transition: color 0.3s ease;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
     }
 
     nav a:hover {
-      color: var(--highlight-color);
+      color: cyan;
+      text-shadow: 0 0 8px cyan;
     }
 
     main {
@@ -137,7 +138,7 @@
 </head>
 <body>
   <header>
-    <h1>{{ site.title | default: "My Site Header" }}</h1>
+    <h1>{{ site.title | default: "7411 Project" }}</h1>
     <nav>
       <a href="/">Home</a>
       <a href="/about">About</a>
