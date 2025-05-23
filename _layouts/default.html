@@ -4,11 +4,20 @@
   <meta charset="UTF-8">
   <title>{{ page.title }}</title>
   <style>
+    :root {
+      --background-color: #2b2b2b;
+      --surface-color: #3c3f41;
+      --text-color: #dcdcdc;
+      --highlight-color: #4fe1ff;
+      --border-color: #4f4f4f;
+    }
+
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background: #f0f0f0;
+      font-family: "Segoe UI", "Ubuntu", "Arial", sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
       text-align: center;
     }
 
@@ -16,30 +25,35 @@
       margin: 20px auto;
       padding: 20px;
       max-width: 800px;
-      border: 2px solid #ccc;
+      background: var(--surface-color);
       border-radius: 12px;
-      background: linear-gradient(to bottom, #ffffff, #e0e0e0);
-      box-shadow: 4px 4px 10px rgba(0,0,0,0.1), -2px -2px 5px rgba(255,255,255,0.7);
+      border: 1px solid var(--border-color);
+      box-shadow: inset 1px 1px 3px rgba(255,255,255,0.05), 2px 2px 8px rgba(0,0,0,0.6);
     }
 
     h1 {
-      margin: 0;
-      font-size: 2em;
+      color: var(--highlight-color);
+      margin-top: 0;
     }
 
-    main {
-      min-height: 300px;
+    a {
+      color: var(--highlight-color);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
     }
 
     footer {
       font-size: 0.9em;
-      color: #666;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>{{ site.title | default: "7411 Project" }}</h1>
+    <h1>{{ site.title | default: "My Site Header" }}</h1>
   </header>
 
   <main>
@@ -47,7 +61,7 @@
   </main>
 
   <footer>
-    7411 Project
+    Footer Test
   </footer>
 </body>
 </html>
