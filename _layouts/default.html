@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>{{ page.title }}</title>
   <style>
     :root {
@@ -13,10 +13,7 @@
       --button-color: #8ae234;
       --button-hover-color: #aaff66;
       --link-color: cyan;
-    }
-
-    * {
-      box-sizing: border-box;
+      --font-size: 16px;
     }
 
     body {
@@ -26,6 +23,25 @@
       background-color: var(--background-color);
       color: var(--text-color);
       text-align: center;
+      font-size: var(--font-size);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body.light-mode {
+      --background-color: #fefefe;
+      --surface-color: #e0e0e0;
+      --text-color: #222;
+      --highlight-color: #0077cc;
+      --border-color: #ccc;
+      --button-color: #4caf50;
+      --button-hover-color: #81c784;
+      --link-color: #0077cc;
+      background-color: var(--background-color);
+      color: var(--text-color);
+    }
+
+    * {
+      box-sizing: border-box;
     }
 
     header {
@@ -33,20 +49,32 @@
       padding: 15px 30px;
       border-bottom: 1px solid var(--border-color);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     header h1 {
       margin: 0;
       font-size: 1.8em;
       color: var(--highlight-color);
+      flex: 1;
+      user-select: none;
     }
 
     nav {
       margin-top: 10px;
+      position: absolute;
+      bottom: -36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 15px;
+      z-index: 10;
     }
 
     nav a {
-      margin: 0 15px;
       color: var(--link-color);
       text-decoration: none;
       font-weight: bold;
@@ -56,6 +84,82 @@
     nav a:hover {
       color: var(--link-color);
       text-shadow: 0 0 8px var(--link-color);
+    }
+
+    #settings-toggle {
+      position: absolute;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      fill: var(--highlight-color);
+      transition: fill 0.3s ease;
+      user-select: none;
+    }
+
+    #settings-toggle:hover {
+      fill: var(--link-color);
+    }
+
+    #settings-menu {
+      position: absolute;
+      top: 60px;
+      right: 30px;
+      background: var(--surface-color);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      box-shadow: 2px 2px 12px rgba(0,0,0,0.7);
+      width: 260px;
+      padding: 20px;
+      display: none;
+      z-index: 100;
+      text-align: left;
+      color: var(--text-color);
+      font-size: 0.9em;
+      user-select: none;
+    }
+
+    #settings-menu.show {
+      display: block;
+    }
+
+    #settings-menu label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    #settings-menu input[type="range"] {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    #settings-menu .toggle-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+
+    #settings-menu button {
+      background-color: var(--button-color);
+      color: #000;
+      border: none;
+      padding: 8px 15px;
+      font-size: 1em;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      width: 100%;
+    }
+
+    #settings-menu button:hover {
+      background-color: var(--button-hover-color);
+      transform: scale(1.05);
     }
 
     main {
@@ -159,11 +263,96 @@
       <a href="/directory">Directory</a>
       <a href="/archive">Archive</a>
     </nav>
+
+    <svg id="settings-toggle" viewBox="0 0 24 24" aria-label="Settings" role="button" tabindex="0" title="Settings">
+      <path d="M19.14 12.94a7.98 7.98 0 000-1.88l2.03-1.58-2-3.46-2.39.96a8.086 8.086 0 00-1.63-1l-.36-2.54H9.24l-.36 2.54a7.86 7.86 0 00-1.63 1l-2.39-.96-2 3.46 2.03 1.58a7.98 7.98 0 000 1.88L3.23 14.5l2 3.46 2.39-.96c.48.38 1 .7 1.63 1l.36 2.54h3.98l.36-2.54c.63-.3 1.15-.65 1.63-1l2.39.96 2-3.46-2.09-1.56zM12 15.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7z"/>
+    </svg>
+
+    <div id="settings-menu" role="region" aria-label="Settings Menu" tabindex="-1">
+      <label for="font-size-slider">Font Size: <span id="font-size-value">16</span>px</label>
+      <input type="range" id="font-size-slider" min="12" max="24" value="16" />
+
+      <div class="toggle-container">
+        <input type="checkbox" id="mode-toggle" />
+        <label for="mode-toggle">Light Mode</label>
+      </div>
+
+      <div class="toggle-container">
+        <input type="checkbox" id="images-toggle" checked />
+        <label for="images-toggle">Show Images</label>
+      </div>
+
+      <button id="settings-close">Close</button>
+    </div>
   </header>
 
   <main>
     {{ content }}
     <footer>7411 Project</footer>
   </main>
+
+  <script>
+    const settingsToggle = document.getElementById('settings-toggle');
+    const settingsMenu = document.getElementById('settings-menu');
+    const fontSizeSlider = document.getElementById('font-size-slider');
+    const fontSizeValue = document.getElementById('font-size-value');
+    const modeToggle = document.getElementById('mode-toggle');
+    const imagesToggle = document.getElementById('images-toggle');
+    const settingsClose = document.getElementById('settings-close');
+
+    function toggleSettings() {
+      settingsMenu.classList.toggle('show');
+      if (settingsMenu.classList.contains('show')) {
+        settingsMenu.focus();
+      }
+    }
+
+    settingsToggle.addEventListener('click', toggleSettings);
+    settingsToggle.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleSettings();
+      }
+    });
+
+    settingsClose.addEventListener('click', () => {
+      settingsMenu.classList.remove('show');
+      settingsToggle.focus();
+    });
+
+    fontSizeSlider.addEventListener('input', () => {
+      const size = fontSizeSlider.value;
+      fontSizeValue.textContent = size;
+      document.documentElement.style.setProperty('--font-size', size + 'px');
+    });
+
+    modeToggle.addEventListener('change', () => {
+      if (modeToggle.checked) {
+        document.body.classList.add('light-mode');
+      } else {
+        document.body.classList.remove('light-mode');
+      }
+    });
+
+    imagesToggle.addEventListener('change', () => {
+      const imgs = document.querySelectorAll('main img');
+      imgs.forEach(img => {
+        img.style.display = imagesToggle.checked ? 'block' : 'none';
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!settingsMenu.contains(e.target) && !settingsToggle.contains(e.target)) {
+        settingsMenu.classList.remove('show');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && settingsMenu.classList.contains('show')) {
+        settingsMenu.classList.remove('show');
+        settingsToggle.focus();
+      }
+    });
+  </script>
 </body>
 </html>
