@@ -12,18 +12,54 @@
       --border-color: #4f4f4f;
     }
 
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 0;
       font-family: "Segoe UI", "Ubuntu", "Arial", sans-serif;
       background-color: var(--background-color);
       color: var(--text-color);
-      text-align: center;
     }
 
-    header, main, footer {
-      margin: 30px auto;
+    .container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    aside {
+      width: 220px;
+      background: var(--surface-color);
+      padding: 30px 20px;
+      border-right: 1px solid var(--border-color);
+      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.5);
+      transition: background 0.3s ease;
+    }
+
+    aside h2 {
+      color: var(--highlight-color);
+      margin-top: 0;
+    }
+
+    nav a {
+      display: block;
+      color: var(--text-color);
+      text-decoration: none;
+      padding: 10px 0;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--highlight-color);
+      transform: translateX(5px);
+    }
+
+    main {
+      flex: 1;
       padding: 30px;
+      margin: 30px;
       max-width: 960px;
       background: var(--surface-color);
       border-radius: 12px;
@@ -32,6 +68,8 @@
         inset 1px 1px 3px rgba(255, 255, 255, 0.05),
         2px 2px 8px rgba(0, 0, 0, 0.6),
         4px 4px 20px rgba(0, 0, 0, 0.4);
+      text-align: center;
+      transition: transform 0.3s ease;
     }
 
     h1 {
@@ -48,11 +86,6 @@
       text-decoration: underline;
     }
 
-    footer {
-      font-size: 0.9em;
-      color: #aaa;
-    }
-
     img {
       display: block;
       margin: 20px auto;
@@ -62,20 +95,52 @@
         0 4px 12px rgba(0, 0, 0, 0.5),
         0 0 0 4px var(--border-color);
       border-radius: 8px;
+      transition: transform 0.3s ease;
+    }
+
+    img:hover {
+      transform: scale(1.02);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9em;
+      color: #aaa;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      aside {
+        width: 100%;
+        text-align: center;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        box-shadow: none;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>{{ site.title | default: "My Site Header" }}</h1>
-  </header>
+  <div class="container">
+    <aside>
+      <h2>Navigation</h2>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/projects">Projects</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </aside>
 
-  <main>
-    {{ content }}
-  </main>
-
-  <footer>
-    Footer Test
-  </footer>
+    <main>
+      <h1>{{ site.title | default: "My Site Header" }}</h1>
+      {{ content }}
+      <footer>Footer Test</footer>
+    </main>
+  </div>
 </body>
 </html>
