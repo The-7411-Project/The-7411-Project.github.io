@@ -14,6 +14,7 @@
       --button-hover-color: #aaff66;
       --link-color: cyan;
       --font-size: 16px;
+      --image-scale: 1;
     }
 
     body {
@@ -192,10 +193,12 @@
         0 0 0 4px var(--border-color);
       border-radius: 8px;
       transition: transform 0.3s ease;
+      transform-origin: center center;
+      transform: scale(var(--image-scale));
     }
 
     img:hover {
-      transform: scale(1.02);
+      transform: scale(calc(var(--image-scale) * 1.02));
     }
 
     table {
@@ -277,6 +280,9 @@
         <label for="images-toggle">Show Images</label>
       </div>
 
+      <label for="image-size-slider">Image Size: <span id="image-size-value">100</span>%</label>
+      <input type="range" id="image-size-slider" min="50" max="150" value="100" />
+
       <button id="settings-close">Close</button>
     </div>
   </header>
@@ -293,6 +299,8 @@
     const fontSizeValue = document.getElementById('font-size-value');
     const modeToggle = document.getElementById('mode-toggle');
     const imagesToggle = document.getElementById('images-toggle');
+    const imageSizeSlider = document.getElementById('image-size-slider');
+    const imageSizeValue = document.getElementById('image-size-value');
     const settingsClose = document.getElementById('settings-close');
 
     function toggleSettings() {
@@ -336,17 +344,30 @@
       });
     });
 
-    document.addEventListener('click', (e) => {
-      if (!settingsMenu.contains(e.target) && !settingsToggle.contains(e.target)) {
-        settingsMenu.classList.remove('show');
-      }
+    imageSizeSlider.addEventListener('input', () => {
+      const scalePercent = imageSizeSlider.value;
+      imageSizeValue.textContent = scalePercent;
+      const scale = scalePercent / 100;
+      document.documentElement.style.setProperty('--image-scale', scale);
     });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && settingsMenu.classList.contains('show')) {
-        settingsMenu.classList.remove('show');
-        settingsToggle.focus();
-      }
+    // Initialize states on page load:
+    fontSizeValue.textContent = fontSizeSlider.value;
+    document.documentElement.style.setProperty('--font-size', fontSizeSlider.value + 'px');
+
+    imageSizeValue.textContent = imageSizeSlider.value;
+    document.documentElement.style.setProperty('--image-scale', imageSizeSlider.value / 100);
+
+    if (modeToggle.checked) {
+      document.body.classList.add('light-mode');
+    } else {
+      document.body.classList.remove('light-mode');
+    }
+
+    // Show images toggle checked by default
+    const imgs = document.querySelectorAll('main img');
+    imgs.forEach(img => {
+      img.style.display = imagesToggle.checked ? 'block' : 'none';
     });
   </script>
 </body>
