@@ -10,6 +10,8 @@
       --text-color: #dcdcdc;
       --highlight-color: #4fe1ff;
       --border-color: #4f4f4f;
+      --button-color: #8ae234;
+      --button-hover-color: #aaff66;
     }
 
     * {
@@ -22,44 +24,41 @@
       font-family: "Segoe UI", "Ubuntu", "Arial", sans-serif;
       background-color: var(--background-color);
       color: var(--text-color);
+      text-align: center;
     }
 
-    .container {
-      display: flex;
-      min-height: 100vh;
-    }
-
-    aside {
-      width: 220px;
+    header {
       background: var(--surface-color);
-      padding: 30px 20px;
-      border-right: 1px solid var(--border-color);
-      box-shadow: 4px 0 12px rgba(0, 0, 0, 0.5);
-      transition: background 0.3s ease;
+      padding: 15px 30px;
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
     }
 
-    aside h2 {
+    header h1 {
+      margin: 0;
+      font-size: 1.8em;
       color: var(--highlight-color);
-      margin-top: 0;
+    }
+
+    nav {
+      margin-top: 10px;
     }
 
     nav a {
-      display: block;
+      margin: 0 15px;
       color: var(--text-color);
       text-decoration: none;
-      padding: 10px 0;
-      transition: color 0.3s ease, transform 0.2s ease;
+      font-weight: bold;
+      transition: color 0.3s ease;
     }
 
     nav a:hover {
       color: var(--highlight-color);
-      transform: translateX(5px);
     }
 
     main {
-      flex: 1;
       padding: 30px;
-      margin: 30px;
+      margin: 30px auto;
       max-width: 960px;
       background: var(--surface-color);
       border-radius: 12px;
@@ -68,22 +67,6 @@
         inset 1px 1px 3px rgba(255, 255, 255, 0.05),
         2px 2px 8px rgba(0, 0, 0, 0.6),
         4px 4px 20px rgba(0, 0, 0, 0.4);
-      text-align: center;
-      transition: transform 0.3s ease;
-    }
-
-    h1 {
-      color: var(--highlight-color);
-      margin-top: 0;
-    }
-
-    a {
-      color: var(--highlight-color);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
     }
 
     img {
@@ -102,45 +85,70 @@
       transform: scale(1.02);
     }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9em;
-      color: #aaa;
+    table {
+      width: 100%;
+      margin: 20px auto;
+      border-collapse: collapse;
+      background: var(--surface-color);
+      color: var(--text-color);
+      border: 1px solid var(--border-color);
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.5);
     }
 
-    @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-      }
+    th, td {
+      padding: 12px 16px;
+      border: 1px solid var(--border-color);
+    }
 
-      aside {
-        width: 100%;
-        text-align: center;
-        border-right: none;
-        border-bottom: 1px solid var(--border-color);
-        box-shadow: none;
-      }
+    th {
+      background-color: #4b4e51;
+      color: var(--highlight-color);
+    }
+
+    tr:nth-child(even) {
+      background-color: #383c3e;
+    }
+
+    button {
+      background-color: var(--button-color);
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      margin: 10px auto;
+      font-size: 1em;
+      font-weight: bold;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: var(--button-hover-color);
+      transform: scale(1.05);
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #aaa;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <aside>
-      <h2>Navigation</h2>
-      <nav>
-        <a href="/">Home</a>
-        <a href="/about">About</a>
-        <a href="/projects">Projects</a>
-        <a href="/contact">Contact</a>
-      </nav>
-    </aside>
+  <header>
+    <h1>{{ site.title | default: "My Site Header" }}</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/directory">Directory</a>
+      <a href="/archive">Archive</a>
+    </nav>
+  </header>
 
-    <main>
-      <h1>{{ site.title | default: "My Site Header" }}</h1>
-      {{ content }}
-      <footer>Footer Test</footer>
-    </main>
-  </div>
+  <main>
+    {{ content }}
+    <footer>7411 Project</footer>
+  </main>
 </body>
 </html>
