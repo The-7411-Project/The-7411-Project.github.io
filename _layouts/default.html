@@ -50,39 +50,18 @@
       padding: 15px 30px;
       border-bottom: 1px solid var(--border-color);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      position: relative;
     }
 
     header h1 {
-      margin: 0;
+      margin: 0 auto 0 0;
       font-size: 1.8em;
       color: var(--highlight-color);
       user-select: none;
       flex-shrink: 0;
-    }
-
-    nav {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      flex-grow: 1;
-      margin: 0 20px;
-    }
-
-    nav a {
-      color: var(--link-color);
-      text-decoration: none;
-      font-weight: bold;
-      transition: color 0.3s ease, text-shadow 0.3s ease;
-      line-height: 1;
-    }
-
-    nav a:hover {
-      color: var(--link-color);
-      text-shadow: 0 0 8px var(--link-color);
     }
 
     #settings-toggle {
@@ -156,6 +135,27 @@
     #settings-menu button:hover {
       background-color: var(--button-hover-color);
       transform: scale(1.05);
+    }
+
+    nav {
+      margin: 10px auto 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      max-width: 960px;
+    }
+
+    nav a {
+      color: var(--link-color);
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s ease, text-shadow 0.3s ease;
+      line-height: 1;
+    }
+
+    nav a:hover {
+      color: var(--link-color);
+      text-shadow: 0 0 8px var(--link-color);
     }
 
     main {
@@ -255,12 +255,6 @@
 <body>
   <header>
     <h1>{{ site.title | default: "My Site Header" }}</h1>
-    <nav>
-      <a href="/">Home</a>
-      <a href="/about">About</a>
-      <a href="/directory">Directory</a>
-      <a href="/archive">Archive</a>
-    </nav>
 
     <svg id="settings-toggle" viewBox="0 0 24 24" aria-label="Settings" role="button" tabindex="0" title="Settings" >
       <path d="M19.14 12.94a7.98 7.98 0 000-1.88l2.03-1.58-2-3.46-2.39.96a8.086 8.086 0 00-1.63-1l-.36-2.54H9.24l-.36 2.54a7.86 7.86 0 00-1.63 1l-2.39-.96-2 3.46 2.03 1.58a7.98 7.98 0 000 1.88L3.23 14.5l2 3.46 2.39-.96c.48.38 1 .7 1.63 1l.36 2.54h3.98l.36-2.54c.63-.3 1.15-.65 1.63-1l2.39.96 2-3.46-2.09-1.56zM12 15.5a3.5 3.5 0 110-7 3.5 3.5 0 010 7z"/>
@@ -286,6 +280,13 @@
       <button id="settings-close">Close</button>
     </div>
   </header>
+
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/directory">Directory</a>
+    <a href="/archive">Archive</a>
+  </nav>
 
   <main>
     {{ content }}
@@ -340,34 +341,27 @@
     imagesToggle.addEventListener('change', () => {
       const imgs = document.querySelectorAll('main img');
       imgs.forEach(img => {
-        img.style.display = imagesToggle.checked ? 'block' : 'none';
+        img.style.display = imagesToggle.checked ? '' : 'none';
       });
     });
 
     imageSizeSlider.addEventListener('input', () => {
-      const scalePercent = imageSizeSlider.value;
-      imageSizeValue.textContent = scalePercent;
-      const scale = scalePercent / 100;
-      document.documentElement.style.setProperty('--image-scale', scale);
+      const val = imageSizeSlider.value;
+      imageSizeValue.textContent = val;
+      document.documentElement.style.setProperty('--image-scale', val / 100);
     });
 
-    // Initialize states on page load:
-    fontSizeValue.textContent = fontSizeSlider.value;
-    document.documentElement.style.setProperty('--font-size', fontSizeSlider.value + 'px');
+    document.addEventListener('click', e => {
+      if (!settingsMenu.contains(e.target) && !settingsToggle.contains(e.target)) {
+        settingsMenu.classList.remove('show');
+      }
+    });
 
-    imageSizeValue.textContent = imageSizeSlider.value;
-    document.documentElement.style.setProperty('--image-scale', imageSizeSlider.value / 100);
-
-    if (modeToggle.checked) {
-      document.body.classList.add('light-mode');
-    } else {
-      document.body.classList.remove('light-mode');
-    }
-
-    // Show images toggle checked by default
-    const imgs = document.querySelectorAll('main img');
-    imgs.forEach(img => {
-      img.style.display = imagesToggle.checked ? 'block' : 'none';
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && settingsMenu.classList.contains('show')) {
+        settingsMenu.classList.remove('show');
+        settingsToggle.focus();
+      }
     });
   </script>
 </body>
