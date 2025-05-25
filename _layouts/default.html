@@ -5,9 +5,10 @@
   <title>{{ page.title }}</title>
   <style>
     :root {
-      --background-color: #f5f5f5;
+      --background-color: #232021;
+      --grid-color: #404041;
       --surface-color: #ffffff;
-      --text-color: #222222;
+      --text-color: #dddddd;
       --primary-color: #626464;
       --border-color: #cccccc;
       --link-color: #626464;
@@ -23,10 +24,8 @@
       font-family: "Segoe UI", "Ubuntu", "Arial", sans-serif;
       background-color: var(--background-color);
       background-image:
-        linear-gradient(45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%),
-        linear-gradient(-45deg, rgba(0, 0, 0, 0.05) 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, rgba(0, 0, 0, 0.05) 75%),
-        linear-gradient(-45deg, transparent 75%, rgba(0, 0, 0, 0.05) 75%);
+        linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
       background-size: 40px 40px;
       color: var(--text-color);
       font-size: var(--font-size);
@@ -48,7 +47,7 @@
       margin: 0;
       font-size: 2em;
       color: var(--primary-color);
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
     }
 
     header h1 a {
@@ -58,7 +57,7 @@
     }
 
     header h1 a:hover {
-      text-shadow: 0 0 10px rgba(98, 100, 100, 0.8);
+      text-shadow: 0 0 12px rgba(98, 100, 100, 0.8);
     }
 
     main {
@@ -147,20 +146,19 @@
     footer {
       margin-top: 40px;
       font-size: 0.9em;
-      color: #555;
-      text-align: center;
-      text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+      color: #999;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
     }
   </style>
 </head>
 <body>
   <header>
-    <h1><a href="/">My Site Header</a></h1>
+    <h1><a href="/">THE 7411 PROJECT</a></h1>
   </header>
 
   <main>
     {{ content }}
-    <footer>7411 Project</footer>
+    <footer>7411 PROJECT</footer>
   </main>
 </body>
 </html>
